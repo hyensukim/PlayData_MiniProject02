@@ -15,21 +15,37 @@
     - 홈페이지에 방문한 사용자들이 방명록을 남기는 기능.
 
 # 설계
+- URL
+	- /guestControl → guestList.jsp
+	- guestList.jsp
+		- 상단 제목
+		- 방명록 목록(8개 이상 시, 스크롤 생기도록 구현)
+		- 방명록 쓰기(버튼 클릭 시 아래 확장)
+		
+
 - View
 	- guestList.jsp : 방명록 목록(방명록 삭제), 방명록 글작성(작성자, 비밀번호 → 삭제 시 사용, 제목, 내용)
-	- guestView.jsp : 방명록 작성한 글보기
 	
+		- guestView.jsp : 방명록 작성한 글보기
+<br><br>
+
 - Model
-	- guestPost.java
+	- guest.java
 	- guestDAO.java
 		- DB 추가
 		- DB 삭제
 		- DB 조회(개별)
 		- DB 목록 조회
-	
+<br><br>
+
 - Controller
 	- guestController.java
 	- service()
+	- addGuest() : 방명록 쓰기
+	- deleteGuest() : 방명록 삭제
+	- goodAndBad() : 좋아요 싫어요
 	
+<br><br>
+
 - filter
 	- 입력 글자 인코딩
