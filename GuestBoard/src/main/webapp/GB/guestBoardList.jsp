@@ -14,7 +14,8 @@
 	<h2><b>방명록</b></h2>
 	<hr>
 	<a href = "/GuestBoard/GBControl">새로고침</a>
-	<!-- <ul class="list-group">
+		<!-- 
+ 		<ul class="list-group">
 			<c:forEach var="guestboard" items="${gusetBoardList}" varStatus="status">
 				<li class="list-group-item list-group-item-action d-flex justify-content-between align-item-center">
 					<a href="GBControl?action=list&aid=${guestboard.aid}" class="text-decoration-none">[${status.count}] ${guestboard.content},${guestboard.date}</a> 
@@ -22,7 +23,6 @@
 				</li>
 			</c:forEach>
 		</ul> 
-	
 		<button class="btn btn-outline-info mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#addForm"
 			aria-expanded="false" aria-controls="addForm">댓글 등록</button>
 			<div class="collapse" id="addForm">
@@ -36,7 +36,7 @@
 				</form>
 			</div>
 		</div>
-		-->
+ -->	
 		<table border = "1">
 		<tr><th>no</th></tr>
 		<tr><th>별명</th></tr>
@@ -51,6 +51,14 @@
 		<hr>
 		<h2><b>댓글</b></h2>
 		<hr>
+		<form method="post" action="/GuestBoard/GBControl?action=insert">
+		<label>닉네임</label>
+		<input type="text" name="nickname"><br>
+		<label>댓글</label>
+		<input type="text" name="content"><br>
+		<button type="submit">등록</button>
+		</form>
+		<!-- 
 		<button class="btn btn-outline-info mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#addForm"
 			aria-expanded="false" aria-controls="addForm">댓글 등록</button>
 			<div class="collapse" id="addForm">
@@ -64,6 +72,7 @@
 				</form>
 			</div>
 		</div>
+		 -->
 	</div>
 </body>
 </html>

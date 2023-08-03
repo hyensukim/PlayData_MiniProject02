@@ -17,6 +17,7 @@ public class guestBoardDAO {
 
 	// DB연결
 	public Connection open() {
+		Connection connection = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			// DB 연결 (DB url, user, pw)
@@ -38,6 +39,7 @@ public class guestBoardDAO {
 //	} // close()
 	
 	public void close() {
+
 	    try {
 	        if (preparedStatement != null) {
 	            preparedStatement.close();
@@ -51,7 +53,7 @@ public class guestBoardDAO {
 	}
 
 	// 방명록 등록
-	public void insert(guestBoard GB) {
+	public void insert(guestBoard GB) throws Exception {
 		open();
 		String sql = "INSERT INTO guestboard(nickname, content, date) values(?, ?, CURRENT_TIMESTAMP())";
 
