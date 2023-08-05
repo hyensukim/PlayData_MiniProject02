@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- 부트스트랩 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+ -->
 <title>GUESTBOARD</title>
 </head>
 <body>
@@ -38,11 +40,8 @@
 		</div>
  -->	
 		<table border = "1">
-		<tr><th>no</th></tr>
-		<tr><th>별명</th></tr>
-		<tr><th>내용</th></tr>
-		<tr><th>등록시간</th></tr>
-		<c:forEach items="${guestBoards}" var = "GBs">
+		<tr><th>no</th></tr><tr><th>별명</th></tr><tr><th>내용</th></tr><tr><th>등록시간</th></tr>
+		<c:forEach items="${guestBoards}" var = "GB">
 			<tr>
 				<td>${GBs.aid}</td> <td>${GBs.nickname}</td><td>${GBs.content}</td><td>${GBs.date}</td>
 			</tr>

@@ -59,13 +59,13 @@ public class guestBoardController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		boardDAO.insert(GB);
-		try {
-			boardDAO.insert(GB);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		boardDAO.insert(GB);
+//		try {
+//			boardDAO.insert(GB);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return list(request, response);
 	} // insert()
 }
