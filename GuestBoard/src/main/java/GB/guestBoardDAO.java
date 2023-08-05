@@ -17,7 +17,6 @@ public class guestBoardDAO {
 
 	// DB연결
 	public Connection open() {
-		Connection connection = null;
 		try {
 			Class.forName(JDBC_DRIVER);
 			// DB 연결 (DB url, user, pw)
@@ -28,32 +27,32 @@ public class guestBoardDAO {
 		return connection;
 	} // open()
 
-//	// DB종료
-//	public void close() {
-//		try {
-//			connection.close();
-//			preparedStatement.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	} // close()
-	
+	// DB종료
 	public void close() {
-
-	    try {
-	        if (preparedStatement != null) {
-	            preparedStatement.close();
-	        }
-	        if (connection != null) {
-	            connection.close();
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+		try {
+			connection.close();
+			preparedStatement.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} // close()
+	
+//	public void close() {
+//
+//	    try {
+//	        if (preparedStatement != null) {
+//	            preparedStatement.close();
+//	        }
+//	        if (connection != null) {
+//	            connection.close();
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
 
 	// 방명록 등록
-	public void insert(guestBoard GB) throws Exception {
+	public void insert(guestBoard GB) {
 		open();
 		String sql = "INSERT INTO guestboard(nickname, content, date) values(?, ?, CURRENT_TIMESTAMP())";
 
@@ -61,6 +60,7 @@ public class guestBoardDAO {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, GB.getNickname());
 			preparedStatement.setString(2, GB.getContent());
+			
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

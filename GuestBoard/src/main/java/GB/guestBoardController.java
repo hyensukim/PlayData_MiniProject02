@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 /**
  * Servlet implementation class guestBoardController
  */
-@WebServlet(urlPatterns = "/GBControl")
+@WebServlet("/GBControl")
 public class guestBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
