@@ -46,6 +46,7 @@ public class guestBoardController extends HttpServlet {
 				break;
 			case "delete":
 				view = deleteGuestBoard(request, response);
+				break;
 			default:
                 // 알 수 없는 액션 요청 처리
                 response.sendRedirect(request.getContextPath() + "/GBControl?action=list");
@@ -65,6 +66,7 @@ public class guestBoardController extends HttpServlet {
 			e.printStackTrace();
 		}
 		// request.setAttribute("guestBoards", boardDAO.getAll());
+		
 		return "/guestBoardList.jsp";
 	} // list()
 
@@ -76,7 +78,7 @@ public class guestBoardController extends HttpServlet {
 			boardDAO.insert(GB);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return list(request, response);
+			return list(request, response);	//void일 때 주석처리
 		}
 //		boardDAO.insert(GB);
 
@@ -88,8 +90,19 @@ public class guestBoardController extends HttpServlet {
 //		}
 
 //		return list(request);
+		
+//	    return "redirect:/GBControl?action=list";
 
-		return "redirect:/GBControl?action=list";
+		return "/GBControl?action=list";
+		
+//		return "/guestBoardList.jsp";
+		
+//		 try {
+//		        response.sendRedirect(request.getContextPath() + "/GBControl?action=list");
+//		    } catch (IOException e) {
+//		        e.printStackTrace();
+//		    }
+
 	} // deleteGuestBoard()
 
 //	public String getGuestBoard(HttpServletRequest request) {

@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <title>방명록</title>
     <style>
-        /* 스타일 수정은 필요에 따라 하세요. */
         .comment-container {
             border: 1px solid #ccc;
             padding: 10px;
