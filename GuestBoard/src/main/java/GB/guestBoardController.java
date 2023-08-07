@@ -59,14 +59,6 @@ public class guestBoardController extends HttpServlet {
 			getServletContext().getRequestDispatcher("/GB/" + view).forward(request, response);
 		}
 
-//		if (view.startsWith("redirect:/")) {
-//			String rview = view.substring("redirect:/".length());
-//			response.sendRedirect(rview);
-//		} else {
-//			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-//			dispatcher.forward(request, response);
-//		}
-
 	} // service()
 
 	private String list(HttpServletRequest request, HttpServletResponse response) {
@@ -90,42 +82,11 @@ public class guestBoardController extends HttpServlet {
 			boardDAO.insert(GB);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			return list(request, response);
 		}
-//		boardDAO.insert(GB);
-
-//		try {
-//			boardDAO.insert(GB);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
 		return list(request, response);
 
-//	    return "redirect:/GBControl?action=list";
-
-//		return "/GBControl?action=list";
-
-//		return "/guestBoardList.jsp";
-
-//		 try {
-//		        response.sendRedirect(request.getContextPath() + "/GBControl?action=list");
-//		    } catch (IOException e) {
-//		        e.printStackTrace();
-//		    }
-
 	} // deleteGuestBoard()
-
-//	public String getGuestBoard(HttpServletRequest request) {
-//		int aid = Integer.parseInt(request.getParameter("aid"));
-//		try {
-//			guestBoard GB = boardDAO.getAll(aid);
-//			request.setAttribute("guestBoard", GB);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//	}
 
 	// 방명록 삭제
 	public String delete(HttpServletRequest request, HttpServletResponse response) {

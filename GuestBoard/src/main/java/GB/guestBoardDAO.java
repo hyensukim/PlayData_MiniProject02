@@ -55,6 +55,7 @@ public class guestBoardDAO {
 	public void insert(guestBoard GB) {
 		open();
 		String sql = "INSERT INTO guestboard(nickname, content, date) values(?, ?, CURRENT_TIMESTAMP())";
+		
 
 		try {
 			preparedStatement = connection.prepareStatement(sql);
@@ -74,7 +75,7 @@ public class guestBoardDAO {
 		open();
 		List<guestBoard> guestBoards = new ArrayList<>();
 
-		String sql = "SELECT aid, nickname, content, FORMATDATETIME(CAST(date as TIMESTAMP), 'yyyy-MM-dd hh:mm:ss') as cdate from guestboard";
+		String sql = "select aid, nickname, content, FORMATDATETIME(CAST(date AS TIMESTAMP), 'yyyy-MM-dd hh:mm:ss') as cdate from guestboard";
 
 		try {
 			preparedStatement = connection.prepareStatement(sql);
