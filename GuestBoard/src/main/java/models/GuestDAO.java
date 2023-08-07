@@ -57,7 +57,6 @@ public class GuestDAO {
 			pstmt.setString(2, pass);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			pstmt.setDate(5, date);
 			return pstmt.executeLargeUpdate();
 		}
 	}
@@ -92,18 +91,16 @@ public class GuestDAO {
 		
 		Connection conn = open();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, gId);
 		ResultSet rs = pstmt.executeQuery();
-		
+		rs.next();
 		try(conn; pstmt; rs){
-			pstmt.setInt(1, gId);
-			
 			guest.setgId(rs.getInt("gId"));
 			guest.setName(rs.getString("name"));
 			guest.setPass(rs.getString("pass"));
 			guest.setTitle(rs.getString("title"));
 			guest.setContent(rs.getString("content"));
 			guest.setDate(rs.getDate("date"));
-			
 			return guest;
 		}
 	}

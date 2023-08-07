@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -25,51 +26,94 @@ public class GuestController extends HttpServlet {
 
 	private GuestDAO dao;
 	private ServletContext ctx;
-	
-	private static final String INDEX_PAGE = "/view/guestList.jsp";
-	
+
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		dao = new GuestDAO();
 		ctx = this.getServletContext(); // 실행정보에 대한 logging을 위해 사용.
 	}
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) 
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String gId = request.getParameter("gId");
+		String view = null;
+
+		if (action == null || action.isEmpty()) {
+			action = "list";
+		}
 		
-		if(action == null) {
-			action = "guestList";
+		try {
+			if (action.equals("list")) {
+				view = getGuests(request);
+				if(gId != null) {
+					view = getGuest(request, Integer.parseInt(gId));
+				}
+			} else if(action.equals("add")){
+				view = addGuest(request);
+			} else if(action.equals("delete")) {
+				view = deleteGuest(request,Integer.parseInt(gId));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (view.startsWith("redirect:/")) {
+			String uri = view.substring("redirect:/".length());
+			response.sendRedirect(uri);
+		} else {
+			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
-	
+
 	private String addGuest(HttpServletRequest request) {
 		Guest g = new Guest();
 		try {
 			BeanUtils.populate(g, request.getParameterMap());
 			dao.add(g);
 		} catch (Exception e) {
+			e.printStackTrace();
 			ctx.log("방명록 등록에 실패하였습니다.");
-			request.setAttribute("err","방명록 등록 실패");
+			request.setAttribute("err", "방명록 등록 실패");
 			return getGuests(request);
 		}
 		return "redirect:/guest?action=list";
 	}
-	
+
 	private String getGuests(HttpServletRequest request) {
 		try {
 			List<Guest> list = dao.getGuests();
 			request.setAttribute("guestList", list);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			ctx.log("방명록 목록 조회 중 오류 발생");
 			request.setAttribute("err", "방명록 목록 조회 실패");
 		}
-		
-		return "redirect:/guest?action=list";
+
+		return "view/guestList.jsp";
 	}
 	
-	private String deleteGuest() {
-		return null;
+	private String getGuest(HttpServletRequest request, int gId) {
+		try {
+			Guest guset = dao.getGuest(gId);
+			request.setAttribute("guest", guset);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("방명록 글 상세 조회 오류 발생");
+			request.setAttribute("err", "방명록 상세 조회 실패");
+		}
+		return "view/guestView.jsp";
+	}
+
+	private String deleteGuest(HttpServletRequest request, int gId) {
+		try {
+			dao.delete(gId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			ctx.log("방명록 삭제 중 오류 발생");
+			request.setAttribute("err", "방명록 삭제 실패");
+			return getGuests(request);
+		}
+		return "redirect:/guest?action=list";
 	}
 }
