@@ -36,31 +36,18 @@ public class guestBoardDAO {
 			e.printStackTrace();
 		}
 	} // close()
-	
-//	public void close() {
-//
-//	    try {
-//	        if (preparedStatement != null) {
-//	            preparedStatement.close();
-//	        }
-//	        if (connection != null) {
-//	            connection.close();
-//	        }
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	}
 
 	// 방명록 등록
 	public void insert(guestBoard GB) {
 		open();
-		String sql = "INSERT INTO guestboard(nickname, content, date) values(?, ?, CURRENT_TIMESTAMP())";
+		String sql = "INSERT INTO guestboard(nickname, content, date, password) values(?, ?, CURRENT_TIMESTAMP(), ?)";
 		
 
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, GB.getNickname());
 			preparedStatement.setString(2, GB.getContent());
+			preparedStatement.setString(3, GB.getPassword());
 			
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -75,7 +62,7 @@ public class guestBoardDAO {
 		open();
 		List<guestBoard> guestBoards = new ArrayList<>();
 
-		String sql = "select aid, nickname, content, FORMATDATETIME(CAST(date AS TIMESTAMP), 'yyyy-MM-dd hh:mm:ss') as cdate from guestboard";
+		String sql = "select aid, nickname, content, FORMATDATETIME(CAST(date AS TIMESTAMP), 'yyyy-MM-dd hh:mm:ss') as cdate, password from guestboard";
 
 		try {
 			preparedStatement = connection.prepareStatement(sql);
@@ -87,6 +74,7 @@ public class guestBoardDAO {
 				GB.setNickname(resultSet.getString("nickname"));
 				GB.setContent(resultSet.getString("content"));
 				GB.setDate(resultSet.getString("cdate"));
+				GB.setPassword(resultSet.getString("password"));
 
 				guestBoards.add(GB);
 			}

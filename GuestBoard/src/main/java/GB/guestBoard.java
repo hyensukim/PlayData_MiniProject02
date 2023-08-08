@@ -5,6 +5,7 @@ public class guestBoard {
 	private String nickname;
 	private String content;
 	private String date;
+	private String password;
 	
 	//getter, setter
 	public int getAid() {return aid; }
@@ -18,6 +19,9 @@ public class guestBoard {
 	
 	public String getDate() { return date; }
 	public void setDate(String date) { this.date = date; }
+	
+	public String getPassword() { return password; }
+	public void setPassword(String password) { this.password = password; }
 	
 	
 

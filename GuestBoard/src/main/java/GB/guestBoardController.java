@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-/**
- * Servlet implementation class guestBoardController
- */
-
 //@WebServlet(urlPatterns = "/GBControl")
 @WebServlet("/GBControl")
 public class guestBoardController extends HttpServlet {
@@ -38,8 +34,7 @@ public class guestBoardController extends HttpServlet {
 
 		if (request.getParameter("action") == null) {
 			getServletContext().getRequestDispatcher("/GBControl?action=list").forward(request, response);
-//			getServletContext().getRequestDispatcher("/GBControl").forward(request, response);
-//			action = "list";
+
 		} else {
 			switch (action) {
 			case "list":
@@ -51,10 +46,6 @@ public class guestBoardController extends HttpServlet {
 			case "delete":
 				view = delete(request, response);
 				break;
-//			default:
-//				// 알 수 없는 액션 요청 처리
-//				response.sendRedirect(request.getContextPath() + "/GBControl?action=list");
-//				break;
 			}
 			getServletContext().getRequestDispatcher("/GB/" + view).forward(request, response);
 		}
@@ -69,7 +60,6 @@ public class guestBoardController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		 request.setAttribute("guestBoards", boardDAO.getAll());
 
 		return "/guestBoardList.jsp";
 	} // list()
@@ -96,8 +86,6 @@ public class guestBoardController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		return "redirect:/GBControl?action=list";
-//		return "/GBControl?action=list";
 		return list(request, response);
 	}
 }
