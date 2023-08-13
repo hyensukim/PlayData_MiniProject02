@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-	
+
 <!DOCTYPE html>
 <html>
 <link
@@ -60,46 +60,46 @@
 	font-size: 14px;
 	float: right;
 }
-
 </style>
 </head>
 <body>
 	<div class="container w-75 mt-5 mx-auto">
-		<h1 style="font-family:나눔고딕;">방명록</h1>
+		<h1 style="font-family: 나눔고딕;">방명록</h1>
 		<!-- 방명록 작성 폼 -->
 		<div class="comment-form">
 			<!-- <form action="/GuestBoard/GBControl?action=insert" method="post">  -->
 			<form action="/GuestBoard/GBControl" method="post">
 				<input type="hidden" name="action" value="insert">
 				<div class="comment-input">
-					<label for="nickname">별명 </label> 
-					<input type="text" id="nickname" name="nickname" required>
-					<label for="nickname">비밀번호 </label> 
-					<input type="text" id="password" name="password" required>
+					<label for="nickname">별명 </label> <input type="text" id="nickname"
+						name="nickname" required> <label for="nickname">비밀번호
+					</label> <input type="text" id="password" name="password" required>
 				</div>
 				<div class="comment-input">
 					<label for="content">내용 </label>
 					<textarea placeholder="댓글을 입력하세요" id="content" name="content"
 						rows="4" cols="65" required></textarea>
-						<span class = "sq-right"><input type="submit" value="등록"></span>
+					<span class="sq-right"><input type="submit" value="등록"></span>
 				</div>
 			</form>
 		</div>
 
 		<hr>
 
-		<h2 style="font-family:나눔고딕;">방명록 리스트</h2>
+		<h2 style="font-family: 나눔고딕;">방명록 리스트</h2>
 		<!-- 방명록 리스트 -->
 		<c:set var="guestBoardCount" value="${fn:length(guestBoards)}" />
-		<h3 style="font-size:16px; font-sytle:나눔고딕;">방명록 개수: ${guestBoardCount}</h3>
+		<h3 style="font-size: 16px; font-sytle: 나눔고딕;">방명록 개수:
+			${guestBoardCount}</h3>
 		<div class="comment-container2">
 			<c:forEach items="${guestBoards}" var="guestBoard" varStatus="loop">
 				<div class="comment-container">
 					<div class="comment-header">${guestBoard.nickname}</div>
 					<div class="comment-content">${guestBoard.content}</div>
 					<div class="comment-date">${guestBoard.date}
-						<span class="sp-right"> <a
-							href="/GuestBoard/GBControl?action=delete&aid=${guestBoard.aid}">삭제</a>
+						<span class="sp-right"> 
+						<!-- <a href="/GuestBoard/GBControl?action=delete&aid=${guestBoard.aid})">삭제</a> -->
+						<a href="#" onclick="openGBDelete(${guestBoard.aid}, '${guestBoard.password}')">삭제</a>
 						</span>
 					</div>
 				</div>
@@ -111,15 +111,32 @@
 		<!-- 5개 보다 많으면 더보기 -->
 		<c:if test="${guestBoardCount > 5}">
 			<p>
-				<a href="#" onclick="showMoreGuestBoards()">더보기</a>
+				<a href="#" onclick="showMoreGB()">더보기</a>
 			</p>
 		</c:if>
 		<script>
-			function showMoreGuestBoards() {
+			// 더보기
+			function showMoreGB() {
 				var container = document
 						.querySelector(".comment-container-container");
 				container.style.height = (container.offsetHeight + 300) + "px";
 			}
+			
+			// 삭제
+			function openGBDelete(aid, password) {
+		        var inputPassword = prompt("비밀번호를 입력하세요:");
+		        
+		        if (inputPassword !== null) {
+		            if (inputPassword === password) {
+		                if (confirm("정말로 삭제하시겠습니까?")) {
+		                    // DAO.delete() 호출
+		                    window.location.href = "/GuestBoard/GBControl?action=delete&aid=" + aid;
+		                }
+		            } else {
+		                alert("비밀번호가 일치하지 않습니다.");
+		            }
+		        }
+		    }
 		</script>
 	</div>
 </body>

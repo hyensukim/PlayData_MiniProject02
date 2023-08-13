@@ -40,14 +40,15 @@ public class guestBoardDAO {
 	// 방명록 등록
 	public void insert(guestBoard GB) {
 		open();
+//		guestBoardPasswordEncrypt pwEncrypt = new guestBoardPasswordEncrypt();
 		String sql = "INSERT INTO guestboard(nickname, content, date, password) values(?, ?, CURRENT_TIMESTAMP(), ?)";
 		
-
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, GB.getNickname());
 			preparedStatement.setString(2, GB.getContent());
 			preparedStatement.setString(3, GB.getPassword());
+//			preparedStatement.setString(3, pwEncrypt.encrypt(GB.getPassword()));
 			
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
