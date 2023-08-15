@@ -53,8 +53,30 @@
 							${g.date} 
 						</td>
 						<td>
-						<a href="guest?action=delete&gId=${g.gId}"> <span
-								class="badge bg-secondary"> &times;</span></a>
+						<!--  <a href="guest?action=delete&gId=${g.gId}"> 
+							<span class="badge bg-secondary"> &times;</span></a>-->
+							
+							<button class="btn btn-secondary collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#x${status.count}"
+								aria-expanded="false" aria-controls="x">&times;
+							</button>
+							<div class="collapse" id="x${status.count}">
+								<div class="card card-body">
+									<form name="deleteForm" method="post" action="/GuestBoard/guest?action=delete&gId=${g.gId}">
+										<dl>
+										<dt>비밀번호</dt>
+										<dd>
+											<input class="w-100" type="password" name="delPass" placeholder="작성 시 등록한 비밀번호 입력"/>
+										</dd>
+										</dl>
+										<button class="btn btn-secondary" type="submit">삭제하기</button>
+									</form>
+									<br>
+									<c:if test="${errMsg != null}">
+										<p class="alert alert-danger">${errMsg}</p>
+									</c:if>
+								</div>
+							</div>
 						</td>
 					</tr>
 				</c:forEach>

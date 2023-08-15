@@ -107,11 +107,24 @@ public class GuestController extends HttpServlet {
 
 	private String deleteGuest(HttpServletRequest request, int gId) {
 		try {
-			dao.delete(gId);
+			Guest g = dao.getGuest(gId);
+			String pass = g.getPass();
+			String inputPass = request.getParameter("delPass");
+			
+			if(!inputPass.isBlank() && inputPass != null) {
+				if(pass.equals(inputPass)) {
+					dao.delete(gId);
+				}else {
+					throw new SQLException("비밀번호가 일치하지 않습니다.");
+				}
+			}else {
+				throw new SQLException("잘못된 입력값입니다.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			ctx.log("방명록 삭제 중 오류 발생");
 			request.setAttribute("err", "방명록 삭제 실패");
+			request.setAttribute("errMsg",e.getMessage());
 			return getGuests(request);
 		}
 		return "redirect:/guest?action=list";

@@ -39,10 +39,16 @@
 
 - Controller
 	- guestController.java
-	- service()
-	- addGuest() : 방명록 쓰기
-	- deleteGuest() : 방명록 삭제
-	- goodAndBad() : 좋아요 싫어요
+		- service()
+		- addGuest() : 방명록 쓰기
+		- deleteGuest() : 방명록 삭제
+		- goodAndBad() : 좋아요 싫어요
+	- 삭제 메서드 기능
+		1. 삭제 버튼
+		2. 비밀번호 입력창 출력(forward 정말 삭제하시겠습니까? 비밀번호를 입력해주세요.)
+		3. 비밀번호 일치여부 확인
+		4. 일치 -> 삭제, 불일치 -> 잘못된 비밀번호 입니다.
+		5. 목록 페이지로 이동.(redirect)
 	
 <br><br>
 
